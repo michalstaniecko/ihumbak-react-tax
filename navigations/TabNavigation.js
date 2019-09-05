@@ -8,9 +8,9 @@ const TabNavigator = createBottomTabNavigator({
 	"Brutto/Netto": {
 		screen: BruttoNettoScreen
 	},
-	"VAT/PIT":{
+	/*"VAT/PIT":{
 		screen: VatPitScreen
-	},
+	},*/
 });
 
 export default createAppContainer(TabNavigator);

@@ -9,12 +9,17 @@
 import React, {Component} from 'react';
 import {Platform, Text, View} from 'react-native';
 import TabNavigation from './navigations/TabNavigation';
-
+import BruttoNettoScreen from "./screens/BruttoNettoScreen";
+import SplashScreen from "react-native-splash-screen";
 
 export default class App extends Component {
-  render() {
+	componentDidMount() {
+		SplashScreen.hide();
+	}
+
+	render() {
     return (
-      <TabNavigation/>
+      <BruttoNettoScreen/>
     );
   }
 }

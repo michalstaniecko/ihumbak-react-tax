@@ -1,5 +1,30 @@
 import React from 'react';
-import {Text, Container, Content, Form, Item, Input, Label, Picker} from "native-base";
+import {View, ScrollView, Image, Linking, TouchableWithoutFeedback} from "react-native";
+import {
+	Text,
+	Container,
+	Content,
+	Form,
+	Item,
+	Input,
+	Label,
+	Picker,
+	Header,
+	Left,
+	Right,
+	Body,
+	Title,
+	Subtitle,
+	Icon,
+	H1,
+	H2,
+	H3,
+} from "native-base";
+
+import Color from './../settings/Colors';
+
+import HeaderScreen from './../components/HeaderScreen';
+import FooterScreen from "../components/FooterScreen";
 
 export default class BruttoNettoScreen extends React.Component {
 	constructor(props) {
@@ -66,56 +91,94 @@ export default class BruttoNettoScreen extends React.Component {
 		}, 100);
 	}
 
+	_goToURL() {
+		const url = "https://sardynkibiznesu.pl";
+		Linking.canOpenURL(url).then(supported => {
+			if (supported) {
+				Linking.openURL(url);
+			} else {
+				console.log('Don\'t know how to open URI: ' + url);
+			}
+		});
+	}
+
 	render() {
 		return (
 			<Container>
-				<Content>
-					<Text>Brutto Netto</Text>
-					<Form>
-						<Item>
-							<Input keyboardType="numeric" placeholder="Kwota"
-							       onChangeText={this.onChangeHandler}
-							       value={this.state.amount}
-							/>
-						</Item>
-						<Item>
-							<Label>Typ kwoty</Label>
-							<Picker
-								mode="dropdown"
-								style={{width: undefined}}
-								placeholder="Typ kwoty"
-								selectedValue={this.state.type}
-								onValueChange={this.onTypeChange.bind(this)}
-							>
-								<Picker.Item label="Brutto" value="brutto"/>
-								<Picker.Item label="Netto" value="netto"/>
-							</Picker>
-						</Item>
-						<Item>
-							<Label>Stawka VAT</Label>
-							<Picker
-								mode="dropdown"
-								style={{width: undefined}}
-								placeholder="Stawka VAT"
-								selectedValue={this.state.vat}
-								onValueChange={this.onVatChange.bind(this)}
-							>
-								<Picker.Item label="23%" value={23}/>
-								<Picker.Item label="8%" value={8}/>
-								<Picker.Item label="5%" value={5}/>
-							</Picker>
-						</Item>
+				<HeaderScreen subtitle="Brutto / Netto"/>
+				<Container style={{
+					'display': 'flex',
+					'flex': 1,
+					'justifyContent': 'space-between'
+				}}>
+					<Content>
 
-					</Form>
-				</Content>
-				<Content>
-					<Content>
-						<Text>Kwota brutto</Text><Text>{this.state.brutto}</Text>
+						<Content>
+
+							<Form>
+								<Item>
+									<Input keyboardType="numeric" placeholder="Kwota"
+									       onChangeText={this.onChangeHandler}
+									       value={this.state.amount}
+									/>
+								</Item>
+								<Item>
+									<Label>Typ kwoty</Label>
+									<Picker
+										mode="dropdown"
+										style={{width: undefined}}
+										placeholder="Typ kwoty"
+										selectedValue={this.state.type}
+										onValueChange={this.onTypeChange.bind(this)}
+									>
+										<Picker.Item label="Brutto" value="brutto"/>
+										<Picker.Item label="Netto" value="netto"/>
+									</Picker>
+								</Item>
+								<Item>
+									<Label>Stawka VAT</Label>
+									<Picker
+										mode="dropdown"
+										style={{width: undefined}}
+										placeholder="Stawka VAT"
+										selectedValue={this.state.vat}
+										onValueChange={this.onVatChange.bind(this)}
+									>
+										<Picker.Item label="23%" value={23}/>
+										<Picker.Item label="8%" value={8}/>
+										<Picker.Item label="5%" value={5}/>
+									</Picker>
+								</Item>
+
+							</Form>
+						</Content>
+						<Content style={{
+							padding: 15,
+							marginTop: 40
+						}}>
+							<View style={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								borderBottomWidth: 1,
+								borderBottomColor: Color.border,
+								marginBottom: 15
+							}}>
+								<H3 style={{color:Color.text}}>Kwota brutto</H3><H3 style={{color:Color.text}}>{this.state.brutto}</H3>
+							</View>
+							<View style={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								borderBottomWidth: 1,
+								borderBottomColor: '#afafaf'
+							}}>
+								<H3 style={{color:Color.text}}>Kwota netto</H3><H3 style={{color:Color.text}}>{this.state.netto}</H3>
+							</View>
+						</Content>
 					</Content>
-					<Content>
-						<Text>Kwota netto</Text><Text>{this.state.netto}</Text>
-					</Content>
-				</Content>
+					<FooterScreen />
+				</Container>
 			</Container>
 		)
 	}
