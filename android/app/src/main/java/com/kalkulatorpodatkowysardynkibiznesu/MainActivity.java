@@ -1,4 +1,4 @@
-package com.rntaxcalculator;
+package com.kalkulatorpodatkowysardynkibiznesu;
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "RnTaxCalculator";
+        return "KalkulatorPodatkowySardynkiBiznesu";
     }
 @Override
     protected void onCreate(Bundle savedInstanceState) {

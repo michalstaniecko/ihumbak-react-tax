@@ -1,4 +1,4 @@
-package com.rntaxcalculator;
+package com.kalkulatorpodatkowysardynkibiznesu;
 
 import android.app.Application;
 

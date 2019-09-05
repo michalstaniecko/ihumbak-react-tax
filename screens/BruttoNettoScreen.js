@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, ScrollView, Image, Linking, TouchableWithoutFeedback} from "react-native";
-import {
+import {View, ScrollView, Image} from "react-native";
+import { 
 	Text,
 	Container,
 	Content,
@@ -89,17 +89,6 @@ export default class BruttoNettoScreen extends React.Component {
 
 			this.count();
 		}, 100);
-	}
-
-	_goToURL() {
-		const url = "https://sardynkibiznesu.pl";
-		Linking.canOpenURL(url).then(supported => {
-			if (supported) {
-				Linking.openURL(url);
-			} else {
-				console.log('Don\'t know how to open URI: ' + url);
-			}
-		});
 	}
 
 	render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableWithoutFeedback, View} from "react-native";
+import {Image, Linking, TouchableWithoutFeedback, View} from "react-native";
 import {Text} from "native-base";
 import Color from "../settings/Colors";
 
@@ -8,6 +8,19 @@ export default class FooterScreen extends React.Component {
 		super(props);
 
 	}
+
+
+	_goToURL() {
+		const url = "https://sardynkibiznesu.pl";
+		Linking.canOpenURL(url).then(supported => {
+			if (supported) {
+				Linking.openURL(url);
+			} else {
+				console.log('Don\'t know how to open URI: ' + url);
+			}
+		});
+	}
+
 
 	render() {
 		return (
