@@ -1,7 +1,7 @@
 export default {
-	text: '#6a6a6a',
+	text: '#6f6f6f',
 	accent: '#cb0202',
 	border: '#afafaf',
-	headerText: '#4f4f4f',
+	headerText: '#6f6f6f',
 	headerBackground: '#fff'
 } 
