@@ -11,7 +11,7 @@ export default class FooterScreen extends React.Component {
 
 
 	_goToURL() {
-		const url = "https://sardynkibiznesu.pl";
+		const url = "https://sardynkibiznesu.pl/?gae=kalkulatorPodatkowy";
 		Linking.canOpenURL(url).then(supported => {
 			if (supported) {
 				Linking.openURL(url);

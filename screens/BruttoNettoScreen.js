@@ -64,7 +64,7 @@ export default class BruttoNettoScreen extends React.Component {
 
 	validateInput(value) {
 		var patt = new RegExp("^[0-9]+(\\.[0-9]{1,2})?$");
-		var valid =  patt.test(value);
+		var valid = patt.test(value);
 		if (valid) {
 			this.setState({
 				errorDisplay: 'none'
@@ -109,7 +109,7 @@ export default class BruttoNettoScreen extends React.Component {
 
 	onChangeHandler = (value) => {
 		console.log('before', value);
-		value = value.replace(',','.');
+		value = value.replace(',', '.');
 		console.log('after', value);
 		var valueValid = this.validateInput(value);
 		this.setState({
@@ -141,7 +141,8 @@ export default class BruttoNettoScreen extends React.Component {
 									       value={this.state.amount}
 									/>
 								</Item>
-								<Text style={[styles.error, {display: this.state.errorDisplay}]}>Wprowadź kwotę w prawidłowym formacie: <Text style={[styles.error,{fontWeight: 'bold'}]}>0,00</Text></Text>
+								<Text style={[styles.error, {display: this.state.errorDisplay}]}>Wprowadź kwotę w formacie: <Text
+									style={[styles.error, {fontWeight: 'bold'}]}>0,00</Text></Text>
 								<Item style={{marginLeft: 0}}>
 									<Label>Typ kwoty</Label>
 									<Picker
