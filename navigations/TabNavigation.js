@@ -1,16 +1,18 @@
 import React from 'react';
 import {createBottomTabNavigator, createAppContainer} from "react-navigation";
 
-import VatPitScreen from "../screens/VatPitScreen";
+import SalaryScreen from "../screens/SalaryScreen";
 import VatScreen from "../screens/VatScreen";
 
 const TabNavigator = createBottomTabNavigator({
-	"VAT": {
+	"Kalkulator VAT": {
 		screen: VatScreen
 	},
-	/*"VAT/PIT":{
-		screen: VatPitScreen
-	},*/
+	"Kalkulator wynagrodzenia":{
+		screen: SalaryScreen
+	},
+}, {
+	initialRouteName: "Kalkulator wynagrodzenia"
 });
 
 export default createAppContainer(TabNavigator);

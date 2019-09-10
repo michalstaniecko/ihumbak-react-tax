@@ -19,7 +19,7 @@ export default class App extends Component {
 
 	render() {
     return (
-      <VatScreen/>
+      <TabNavigation/>
     );
   }
 }
