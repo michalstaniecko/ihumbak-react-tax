@@ -28,7 +28,7 @@ import FooterScreen from "../components/FooterScreen";
 
 const DELAY = 10;
 
-export default class BruttoNettoScreen extends React.Component {
+export default class VatScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -124,7 +124,7 @@ export default class BruttoNettoScreen extends React.Component {
 	render() {
 		return (
 			<Container>
-				<HeaderScreen subtitle="Brutto / Netto"/>
+				<HeaderScreen subtitle="Kalkulator VAT"/>
 				<Container style={{
 					'display': 'flex',
 					'flex': 1,
@@ -136,10 +136,10 @@ export default class BruttoNettoScreen extends React.Component {
 
 							<Form>
 								<Item style={{marginLeft: 0}}>
-									<Input keyboardType="numeric" placeholder="Kwota"
-									       onChangeText={this.onChangeHandler}
-									       value={this.state.amount}
-									/>
+									<Label>Kwota</Label><Input keyboardType="numeric" placeholder="0,00"
+									                           onChangeText={this.onChangeHandler} 
+									                           value={this.state.amount === null ? null : this.state.amount.toString().replace('.',',')}
+								/>
 								</Item>
 								<Text style={[styles.error, {display: this.state.errorDisplay}]}>Wprowadź kwotę w formacie: <Text
 									style={[styles.error, {fontWeight: 'bold'}]}>0,00</Text></Text>
@@ -187,7 +187,7 @@ export default class BruttoNettoScreen extends React.Component {
 								paddingBottom: 5
 							}}>
 								<H3 style={{color: Color.text}}>Kwota brutto</H3><H3
-								style={{color: Color.text}}>{this.state.brutto}</H3>
+								style={{color: Color.text}}>{this.state.brutto.toString().replace('.', ',')}</H3>
 							</View>
 							<View style={{
 								display: 'flex',
@@ -197,7 +197,8 @@ export default class BruttoNettoScreen extends React.Component {
 								borderBottomColor: Color.border,
 								paddingBottom: 5
 							}}>
-								<H3 style={{color: Color.text}}>Kwota netto</H3><H3 style={{color: Color.text}}>{this.state.netto}</H3>
+								<H3 style={{color: Color.text}}>Kwota netto</H3><H3
+								style={{color: Color.text}}>{this.state.netto.toString().replace('.', ',')}</H3>
 							</View>
 						</Content>
 					</Content>

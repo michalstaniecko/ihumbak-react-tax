@@ -2,11 +2,11 @@ import React from 'react';
 import {createBottomTabNavigator, createAppContainer} from "react-navigation";
 
 import VatPitScreen from "../screens/VatPitScreen";
-import BruttoNettoScreen from "../screens/BruttoNettoScreen";
+import VatScreen from "../screens/VatScreen";
 
 const TabNavigator = createBottomTabNavigator({
-	"Brutto/Netto": {
-		screen: BruttoNettoScreen
+	"VAT": {
+		screen: VatScreen
 	},
 	/*"VAT/PIT":{
 		screen: VatPitScreen
