@@ -137,7 +137,7 @@ export default class VatScreen extends React.Component {
 							<Form>
 								<Item style={{marginLeft: 0}}>
 									<Label>Kwota</Label><Input keyboardType="numeric" placeholder="0,00"
-									                           onChangeText={this.onChangeHandler} 
+									                           onChangeText={this.onChangeHandler}
 									                           value={this.state.amount === null ? null : this.state.amount.toString().replace('.',',')}
 								/>
 								</Item>
