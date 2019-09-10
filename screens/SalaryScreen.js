@@ -86,7 +86,7 @@ export default class SalaryScreen extends React.Component {
 						}}>
 							<Text style={{color: Color.text}}>Kwota wolna od podatku</Text>
 							<Text style={{color: Color.text}}>{salary.taxFree ? salary.taxFree : ''}</Text>
-						</View> 
+						</View>
 					</Content>
 				</Content>
 				<FooterScreen/>

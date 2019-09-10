@@ -12,7 +12,7 @@ const TabNavigator = createBottomTabNavigator({
 		screen: SalaryScreen
 	},
 }, {
-	initialRouteName: "Kalkulator wynagrodzenia"
+	//initialRouteName: "Kalkulator wynagrodzenia"
 });
 
 export default createAppContainer(TabNavigator);
