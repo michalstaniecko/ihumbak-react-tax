@@ -14,8 +14,27 @@ export default class Salary {
 			return 70689;
 		}
 	}
-	taxFree = () => {
-		return 556.02;
+	taxFreeCount = () => {
+		let taxFree;
+		if (this.type == "brutto") {
+			if (this.salary <= 8000) {
+				taxFree = 1440;
+			}
+			if (this.salary > 8000 && this.salary <= 13000) {
+				taxFree = 1440 - (883.98 * (this.salary-8000) / 5000);
+			}
+			if (this.salary > 13000 && this.salary <= 85528) {
+				taxFree = 556.02;
+			}
+			if (this.salary > 85528 && this.salary <=127000) {
+				taxFree = 556.02 - (556.02 * (this.salary - this.threshold()) / 41472);
+			}
+			if (this.salary > 127000) {
+				taxFree = 0;
+			}
+		}
+		this.taxFree = Math.round(taxFree);
+		return taxFree;
 	}
 
 	countTax = () => {
@@ -23,26 +42,26 @@ export default class Salary {
 		let surplus;
 		if (this.type == "brutto") {
 			if (this.salary <= this.threshold()) {
-				tax = (this.salary * 0.18) - this.taxFree();
+				tax = (this.salary * 0.18) - this.taxFreeCount();
 			} else {
 
 				surplus = this.salary - this.threshold();
-				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFree();
+				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFreeCount();
 			}
 
 		} else {
 			if (this.salary <= this.threshold("netto")) {
-				let brutto = (this.salary - this.taxFree()) / 0.82;
-				tax = brutto * 0.18 - this.taxFree();
+				let brutto = (this.salary - this.taxFreeCount()) / 0.82;
+				tax = brutto * 0.18 - this.taxFreeCount();
 			} else {
 
-				surplus = (this.salary - this.taxFree() - (0.82 * this.threshold())) / 0.68;
-				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFree();
+				surplus = (this.salary - this.taxFreeCount() - (0.82 * this.threshold())) / 0.68;
+				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFreeCount();
 
 
 			}
 		}
-		return tax;
+		return tax < 0 ? "0" : Math.round(tax);
 	}
 
 
