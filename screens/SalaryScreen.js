@@ -21,9 +21,11 @@ export default class SalaryScreen extends React.Component {
 
 	onChangeHandler = (value) => {
 		salary.salary = parseFloat(value);
-		this.setState({
+		salary.count();
+		//salary.count();
+		/*this.setState({
 			countedTax: salary.countTax()
-		});
+		});*/
 	}
 
 	onTypeChange = (type) => {
@@ -41,7 +43,7 @@ export default class SalaryScreen extends React.Component {
 				<Content>
 					<Form>
 						<Item>
-							<Label>Kwota</Label>
+							<Label>Miesięczne wynagrodzenie</Label>
 							<Input keyboardType="numeric" placeholder="0" onChangeText={this.onChangeHandler}/>
 						</Item>
 						<Item>
@@ -51,7 +53,7 @@ export default class SalaryScreen extends React.Component {
 								style={{width: undefined}}
 								placeholder="Typ kwoty"
 								selectedValue={this.state.type}
-								onValueChange={this.onTypeChange.bind(this)}
+								//onValueChange={this.onTypeChange.bind(this)}
 							>
 								<Picker.Item label="Brutto" value="brutto"/>
 								<Picker.Item label="Netto" value="netto"/>
@@ -73,7 +75,7 @@ export default class SalaryScreen extends React.Component {
 							paddingBottom: 5
 						}}>
 							<H3 style={{color: Color.text}}>Podatek</H3>
-							<H3 style={{color: Color.text}}>{this.state.countedTax ? this.state.countedTax : '0'}</H3>
+							<H3 style={{color: Color.text}}>0</H3>
 						</View>
 
 						<View style={{
@@ -85,7 +87,7 @@ export default class SalaryScreen extends React.Component {
 							paddingBottom: 5
 						}}>
 							<Text style={{color: Color.text}}>Kwota wolna od podatku</Text>
-							<Text style={{color: Color.text}}>{salary.taxFree ? salary.taxFree : ''}</Text>
+							<Text style={{color: Color.text}}>0</Text>
 						</View>
 					</Content>
 				</Content>
