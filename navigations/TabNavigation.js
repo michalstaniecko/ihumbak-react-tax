@@ -23,7 +23,7 @@ const TabNavigator = createMaterialTopTabNavigator({
 		inactiveTintColor: Colors.text,
 		indicatorStyle: {
 			backgroundColor: Colors.accent
-		}, 
+		},
 		showIcon: false,
 		upperCaseLabel: false,
 		style: {

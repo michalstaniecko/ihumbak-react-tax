@@ -4,6 +4,7 @@ import HeaderScreen from "../components/HeaderScreen";
 import Salary from "../Calculators/Salary";
 import FooterScreen from "../components/FooterScreen";
 import Color from "../settings/Colors";
+import Labels from "../settings/Labels";
 import {View} from "react-native";
 
 const salary = new Salary();
@@ -13,25 +14,84 @@ export default class SalaryScreen extends React.Component {
 		super(props);
 		this.state = {
 			countedTax: 0,
-			type: "brutto"
+			type: "brutto",
+			costs: null
 		};
 		salary.salary = 0;
-		salary.type = 'brutto';
 	}
 
 	onChangeHandler = (value) => {
 		salary.salary = parseFloat(value);
+		//salary.salary = 2250;
+		//salary.typeOfEmployment = 'business';
 		this.setState({
-			countedTax: salary.countTax()
+			salary: value,
+			costs: salary.count()
 		});
 	}
 
 	onTypeChange = (type) => {
-		salary.type = type;
-		this.setState({
-			countedTax: salary.countTax(),
-			type: type
-		});
+
+	}
+
+	renderCostItem = (item) => {
+		return (
+
+			<View style={{
+				display: 'flex',
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				borderBottomWidth: 1,
+				borderBottomColor: Color.border,
+				paddingBottom: 5
+			}}>
+				<Text style={{color: Color.text}}>{Labels.costs[item]}</Text>
+				<Text style={{color: Color.text}}>{this.state.costs[item].employee}</Text>
+			</View>
+		)
+	}
+
+	renderCosts = () => {
+		return (
+
+			<Content style={{
+				padding: 15,
+				marginTop: 40
+			}}>
+				<H3>Koszty pracownika</H3>
+				<View style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					borderBottomWidth: 1,
+					borderBottomColor: Color.border,
+					marginBottom: 15,
+					paddingBottom: 5
+				}}>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>kwota netto</Text>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.costs.netto.employee}</Text>
+				</View>
+
+				{ this.renderCostItem('pension') }
+				{ this.renderCostItem('disability') }
+				{ this.renderCostItem('medical') }
+				{ this.renderCostItem('health') }
+				{ this.renderCostItem('tax') }
+
+				<View style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					borderBottomWidth: 1,
+					borderBottomColor: Color.border,
+					marginBottom: 15,
+					paddingBottom: 5
+				}}>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>kwota brutto</Text>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.salary}</Text>
+				</View>
+			</Content>
+		)
 	}
 
 	render() {
@@ -41,7 +101,7 @@ export default class SalaryScreen extends React.Component {
 				<Content>
 					<Form>
 						<Item>
-							<Label>Kwota</Label>
+							<Label>Miesięczne wynagrodzenie</Label>
 							<Input keyboardType="numeric" placeholder="0" onChangeText={this.onChangeHandler}/>
 						</Item>
 						<Item>
@@ -51,7 +111,7 @@ export default class SalaryScreen extends React.Component {
 								style={{width: undefined}}
 								placeholder="Typ kwoty"
 								selectedValue={this.state.type}
-								onValueChange={this.onTypeChange.bind(this)}
+								//onValueChange={this.onTypeChange.bind(this)}
 							>
 								<Picker.Item label="Brutto" value="brutto"/>
 								<Picker.Item label="Netto" value="netto"/>
@@ -59,35 +119,8 @@ export default class SalaryScreen extends React.Component {
 						</Item>
 					</Form>
 
-					<Content style={{
-						padding: 15,
-						marginTop: 40
-					}}>
-						<View style={{
-							display: 'flex',
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-							borderBottomWidth: 1,
-							borderBottomColor: Color.border,
-							marginBottom: 15,
-							paddingBottom: 5
-						}}>
-							<H3 style={{color: Color.text}}>Podatek</H3>
-							<H3 style={{color: Color.text}}>{this.state.countedTax ? this.state.countedTax : '0'}</H3>
-						</View>
+					{this.state.costs ? this.renderCosts() : null}
 
-						<View style={{
-							display: 'flex',
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-							borderBottomWidth: 1,
-							borderBottomColor: Color.border,
-							paddingBottom: 5
-						}}>
-							<Text style={{color: Color.text}}>Kwota wolna od podatku</Text>
-							<Text style={{color: Color.text}}>{salary.taxFree ? salary.taxFree : ''}</Text>
-						</View>
-					</Content>
 				</Content>
 				<FooterScreen/>
 			</Container>

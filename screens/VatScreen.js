@@ -26,6 +26,8 @@ import Color from './../settings/Colors';
 import HeaderScreen from './../components/HeaderScreen';
 import FooterScreen from "../components/FooterScreen";
 
+import styles from "./../styles/Calculator";
+
 const DELAY = 10;
 
 export default class VatScreen extends React.Component {
@@ -209,10 +211,3 @@ export default class VatScreen extends React.Component {
 	}
 
 }
-
-const styles = StyleSheet.create({
-	error: {
-		color: Color.accent,
-		fontSize: 12
-	}
-})
