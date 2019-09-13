@@ -89,9 +89,14 @@ export default class Salary {
 		this.countTaxBase();
 		this.countTax();
 		this.countNetto();
+		this.countEmployerCosts();
 		return this.contributionsAmount;
 	}
-
+	countEmployerCosts = () => {
+		this.contributionsAmount.employerCosts = {
+			employer: this.salary + this.contributionsAmount.pension.employer + this.contributionsAmount.disability.employer + this.contributionsAmount.accident.employer + this.contributionsAmount.laborFound.employer + this.contributionsAmount.fgsp.employer
+		}
+	}
 	countNetto = () => {
 		let netto = this.baseHealth - this.contributionsAmount.health.employee - this.contributionsAmount.tax.employee;
 		this.contributionsAmount.netto = {
@@ -125,7 +130,7 @@ export default class Salary {
 	}
 
 	countAccident = () => {
-		this.contributionsAmount.acciden = {
+		this.contributionsAmount.accident = {
 			employer: this.baseSalary * this.contributionsPercent.accident.employer
 
 		}

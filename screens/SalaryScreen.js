@@ -34,7 +34,7 @@ export default class SalaryScreen extends React.Component {
 
 	}
 
-	renderCostItem = (item) => {
+	renderCostItem = (type,item) => {
 		return (
 
 			<View style={{
@@ -46,12 +46,12 @@ export default class SalaryScreen extends React.Component {
 				paddingBottom: 5
 			}}>
 				<Text style={{color: Color.text}}>{Labels.costs[item]}</Text>
-				<Text style={{color: Color.text}}>{this.state.costs[item].employee}</Text>
+				<Text style={{color: Color.text}}>{this.state.costs[item][type]}</Text>
 			</View>
 		)
 	}
 
-	renderCosts = () => {
+	renderEmployeeCosts = () => {
 		return (
 
 			<Content style={{
@@ -72,11 +72,11 @@ export default class SalaryScreen extends React.Component {
 					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.costs.netto.employee}</Text>
 				</View>
 
-				{ this.renderCostItem('pension') }
-				{ this.renderCostItem('disability') }
-				{ this.renderCostItem('medical') }
-				{ this.renderCostItem('health') }
-				{ this.renderCostItem('tax') }
+				{ this.renderCostItem('employee','pension') }
+				{ this.renderCostItem('employee','disability') }
+				{ this.renderCostItem('employee','medical') }
+				{ this.renderCostItem('employee','health') }
+				{ this.renderCostItem('employee','tax') }
 
 				<View style={{
 					display: 'flex',
@@ -89,6 +89,50 @@ export default class SalaryScreen extends React.Component {
 				}}>
 					<Text style={{color: Color.text, fontWeight: 'bold'}}>kwota brutto</Text>
 					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.salary}</Text>
+				</View>
+			</Content>
+		)
+	}
+
+
+	renderEmployerCosts = () => {
+		return (
+
+			<Content style={{
+				padding: 15,
+				marginTop: 40
+			}}>
+				<H3>Koszty pracodawcy</H3>
+				<View style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					borderBottomWidth: 1,
+					borderBottomColor: Color.border,
+					marginBottom: 15,
+					paddingBottom: 5
+				}}>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>kwota brutto</Text>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.salary}</Text>
+				</View>
+
+				{ this.renderCostItem('employer','pension') }
+				{ this.renderCostItem('employer','disability') }
+				{ this.renderCostItem('employer','accident') }
+				{ this.renderCostItem('employer','laborFound') }
+				{ this.renderCostItem('employer','fgsp') }
+
+				<View style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					borderBottomWidth: 1,
+					borderBottomColor: Color.border,
+					marginBottom: 15,
+					paddingBottom: 5
+				}}>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>koszty pracodawcy</Text>
+					<Text style={{color: Color.text, fontWeight: 'bold'}}>{this.state.costs.employerCosts.employer}</Text>
 				</View>
 			</Content>
 		)
@@ -119,7 +163,8 @@ export default class SalaryScreen extends React.Component {
 						</Item>
 					</Form>
 
-					{this.state.costs ? this.renderCosts() : null}
+					{this.state.costs ? this.renderEmployeeCosts() : null}
+					{this.state.costs ? this.renderEmployerCosts() : null}
 
 				</Content>
 				<FooterScreen/>

@@ -6,5 +6,7 @@ export default {
 		medical: 'ubezpieczenie chorobowe',
 		health: 'ubezpieczenie zdrowotne',
 		tax: 'zaliczka na podatek',
+		laborFound: 'Fundusz Pracy',
+		fgsp: 'FGŚP'
 	}
 }
