@@ -2,9 +2,18 @@ import React from 'react';
 
 
 export default class Salary {
-	constructor(salary = 0, type = "brutto") {
+	constructor(salary = 0, type = "brutto", typeOfEmployment = 'contractOfEmployment') {
 		this.salary = salary;
+		this.businessSalary = 2859;
 		this.type = type;
+		this.typeOfEmployment = typeOfEmployment;
+		this.baseHealth = '';
+		this.contributionsAmount = {};
+		this.baseTax = '';
+		this.employeeCostIncome = {
+			in: 111.25,
+		};
+		this.taxFree = 46.33;
 		this.contributionsPercent = {
 			pension: {
 
@@ -14,6 +23,9 @@ export default class Salary {
 			disability: {
 				employee: 0.0150,
 				employer: 0.0650,
+			},
+			accident: {
+				employer: 0.0167,
 			},
 			medical: { //chorobowe
 				employee: 0.0245
@@ -28,7 +40,6 @@ export default class Salary {
 				employer: 0.001,
 			}
 		}
-		console.log('salary', this.salary);
 	}
 
 	threshold = (type = "brutto") => {
@@ -38,7 +49,7 @@ export default class Salary {
 			return 70689;
 		}
 	}
-	taxFreeCount = () => {
+	countTaxFree = () => {
 		let taxFree;
 		if (this.type == "brutto") {
 			if (this.salary <= 8000) {
@@ -57,82 +68,105 @@ export default class Salary {
 				taxFree = 0;
 			}
 		}
-		console.log('taxFree',taxFree);
-		this.taxFree = (taxFree/12);
-		return taxFree/12;
+
+	}
+
+
+	countBaseSalary = () => {
+		this.baseSalary = this.typeOfEmployment == 'business' ? this.businessSalary : this.salary;
 	}
 
 	count = () => {
-		console.log(this.salary);
-		this.yearSalary = this.salary * 12;
+		this.countBaseSalary();
+		this.countPension();
+		this.countDisability();
+		this.countAccident();
+		this.countMedical();
+		this.countHealthBase();
+		this.countHealth();
+		this.countLaborFound();
+		this.countFgsp();
+		this.countTaxBase();
+		this.countTax();
+		this.countNetto();
+		return this.contributionsAmount;
 	}
 
-	countSalaryBase = () => {
-		let salaryBase = this.salary;
-		return salaryBase;
+	countNetto = () => {
+		let netto = this.baseHealth - this.contributionsAmount.health.employee - this.contributionsAmount.tax.employee;
+		this.contributionsAmount.netto = {
+			employee: netto
+		}
 	}
-
 	countTax = () => {
-		let tax;
-		let surplus;
-		let salaryBase = this.countSalaryBase();
-		if (this.type == "brutto") {
-			if (salaryBase <= this.threshold()) {
-				tax = (salaryBase * 0.18) - this.taxFreeCount();
-			} else {
-
-				surplus = salaryBase - this.threshold();
-				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFreeCount();
-			}
-
-		} else {
-			if (salaryBase <= this.threshold("netto")) {
-				let brutto = (salaryBase - this.taxFreeCount()) / 0.82;
-				tax = brutto * 0.18 - this.taxFreeCount();
-			} else {
-
-				surplus = (salaryBase - this.taxFreeCount() - (0.82 * this.threshold())) / 0.68;
-				tax = ((surplus * 0.32) + (this.threshold() * 0.18)) - this.taxFreeCount();
-
-
-			}
+		this.contributionsAmount.tax = {
+			employee: (this.taxBase * 0.18) - this.taxFree - (0.0775 * this.baseHealth)
 		}
-		return tax < 0 ? 0 : (tax);
 	}
 
-	countContributionsAmount = () => {
-		let salary = this.salary;
-		this.contributionsAmount = {
-			pension: {
+	countTaxBase = () => {
+		this.taxBase = this.salary - (this.contributionsAmount.pension.employee + this.contributionsAmount.disability.employee + this.contributionsAmount.medical.employee) - this.employeeCostIncome.in
+	}
 
-				employee: salary * this.contributionsPercent.pension.employee,
-				employer: salary * this.contributionsPercent.pension.employer
-			},
-			disability: {
-				employee: salary * this.contributionsPercent.disability.employee,
-				employer: salary * this.contributionsPercent.disability.employer,
-			},
-			medical: { //chorobowe
-				employee: salary * this.contributionsPercent.medical.employee
-			},
-			health: { //zdrowotne
-				employee: ((1 - this.contributionsPercent.pension.employee - this.contributionsPercent.disability.employee - this.contributionsPercent.medical.employee) * salary) * this.contributionsPercent.health.employee
-			},
-			laborFound: { //fundusz pracy
-				employer: salary * this.contributionsPercent.laborFound.employer
-			},
-			fgsp: { //Fundusz Gwarantowanych Świadczeń Pracowniczych
-				employer: salary * this.contributionsPercent.fgsp.employer
-			}
+
+	countPension = () => {
+		this.contributionsAmount.pension = {
+			employee: this.baseSalary * this.contributionsPercent.pension.employee,
+			employer: this.baseSalary * this.contributionsPercent.pension.employer
 		}
-		this.salaryReducedBySocial = (1 - this.contributionsPercent.pension.employee - this.contributionsPercent.disability.employee - this.contributionsPercent.medical.employee) * salary;
-		console.log(this.contributionsAmount);
 	}
 
+	countDisability = () => {
+		this.contributionsAmount.disability = {
 
-	displayCounted = (salary, type) => {
-		let counted = this.count(salary, type);
-		return counted + ' counted';
+			employee: this.baseSalary * this.contributionsPercent.disability.employee,
+			employer: this.baseSalary * this.contributionsPercent.disability.employer
+		}
 	}
+
+	countAccident = () => {
+		this.contributionsAmount.acciden = {
+			employer: this.baseSalary * this.contributionsPercent.accident.employer
+
+		}
+	}
+
+	countMedical = () => {
+		this.contributionsAmount.medical = {
+			employee: this.baseSalary * this.contributionsPercent.medical.employee
+
+		}
+	}
+
+	countHealthBase = () => {
+		//emerytalne + rentowe + chorobowe
+		this.baseHealth = this.baseSalary - this.contributionsAmount.pension.employee - this.contributionsAmount.disability.employee - this.contributionsAmount.medical.employee;
+	}
+
+	countHealth = () => {
+		this.contributionsAmount.health = {
+
+			employee: this.baseHealth * this.contributionsPercent.health.employee
+
+		}
+	}
+
+	countLaborFound = () => {
+		this.contributionsAmount.laborFound = {
+
+			employer: this.baseSalary * this.contributionsPercent.laborFound.employer
+
+
+		}
+	}
+
+	countFgsp = () => {
+		this.contributionsAmount.fgsp = {
+
+			employer: this.baseSalary * this.contributionsPercent.fgsp.employer
+
+		}
+	}
+
 
 }
