@@ -9,10 +9,10 @@ const TabNavigator = createMaterialTopTabNavigator({
 	"Kalkulator VAT": {
 		screen: VatScreen
 	},
-	"Kalkulator wynagrodzenia działalność gospodarcza":{
+	"employee-and-employer":{
 		screen: SalaryScreen,
 		navigationOptions: {
-			tabBarLabel: 'Kalkulator wynagrodzenia\ndziałalność gospodarcza'
+			tabBarLabel: 'Koszty pracownika i pracodawcy'
 		}
 	},
 }, {

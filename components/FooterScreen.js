@@ -24,11 +24,7 @@ export default class FooterScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={{marginBottom: 15}}>
-
-				<View style={{}}>
-					<Text style={{textAlign: 'center', color: Color.text}}>Więcej informacji na temat prowadzenia małego biznesu znajdziesz na:</Text>
-				</View>
+			<View elevation={1} style={{paddingVertical: 5, paddingHorizontal: 30,borderTopWidth:1, borderTopColor: '#fff'}}>
 				<View style={{alignItems: 'center'}}>
 					<TouchableWithoutFeedback onPress={this._goToURL}>
 						<Image source={require('./../images/logo_sardynki_biznesu.png')}
