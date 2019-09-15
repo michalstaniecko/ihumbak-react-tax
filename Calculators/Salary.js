@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {round} from './../Helpers/Round';
+
 
 export default class Salary {
 	constructor(salary = 0, type = "brutto", typeOfEmployment = 'contractOfEmployment') {
@@ -99,18 +101,22 @@ export default class Salary {
 	}
 	countNetto = () => {
 		let netto = this.baseHealth - this.contributionsAmount.health.employee - this.contributionsAmount.tax.employee;
+		netto = round(netto, 2);
 		this.contributionsAmount.netto = {
 			employee: netto
 		}
 	}
 	countTax = () => {
+		let tax = (this.taxBase * 0.18) - this.taxFree - (0.0775 * this.baseHealth);
+		tax = round(tax);
 		this.contributionsAmount.tax = {
-			employee: (this.taxBase * 0.18) - this.taxFree - (0.0775 * this.baseHealth)
+			employee: tax
 		}
 	}
 
 	countTaxBase = () => {
-		this.taxBase = this.salary - (this.contributionsAmount.pension.employee + this.contributionsAmount.disability.employee + this.contributionsAmount.medical.employee) - this.employeeCostIncome.in
+		let taxBase = this.salary - (this.contributionsAmount.pension.employee + this.contributionsAmount.disability.employee + this.contributionsAmount.medical.employee) - this.employeeCostIncome.in;
+		this.taxBase = taxBase;
 	}
 
 
@@ -124,51 +130,62 @@ export default class Salary {
 	countDisability = () => {
 		this.contributionsAmount.disability = {
 
-			employee: this.baseSalary * this.contributionsPercent.disability.employee,
-			employer: this.baseSalary * this.contributionsPercent.disability.employer
+			employee: round(this.baseSalary * this.contributionsPercent.disability.employee, 2),
+			employer: round(this.baseSalary * this.contributionsPercent.disability.employer, 2)
 		}
 	}
 
 	countAccident = () => {
+		let accident = this.baseSalary * this.contributionsPercent.accident.employer;
+		accident = round(accident, 2);
 		this.contributionsAmount.accident = {
-			employer: this.baseSalary * this.contributionsPercent.accident.employer
+			employer: accident
 
 		}
 	}
 
 	countMedical = () => {
+		let medical = this.baseSalary * this.contributionsPercent.medical.employee;
+		medical= round(medical, 2);
 		this.contributionsAmount.medical = {
-			employee: this.baseSalary * this.contributionsPercent.medical.employee
+			employee: medical
 
 		}
 	}
 
 	countHealthBase = () => {
+		let healthBase = this.baseSalary - this.contributionsAmount.pension.employee - this.contributionsAmount.disability.employee - this.contributionsAmount.medical.employee
 		//emerytalne + rentowe + chorobowe
-		this.baseHealth = this.baseSalary - this.contributionsAmount.pension.employee - this.contributionsAmount.disability.employee - this.contributionsAmount.medical.employee;
+		this.baseHealth = healthBase;
 	}
 
 	countHealth = () => {
+		let healthBase =this.baseHealth * this.contributionsPercent.health.employee;
+		healthBase = round(healthBase, 2);
 		this.contributionsAmount.health = {
 
-			employee: this.baseHealth * this.contributionsPercent.health.employee
+			employee: healthBase
 
 		}
 	}
 
 	countLaborFound = () => {
+		let laborFound = this.baseSalary * this.contributionsPercent.laborFound.employer;
+		laborFound = round(laborFound, 2);
 		this.contributionsAmount.laborFound = {
 
-			employer: this.baseSalary * this.contributionsPercent.laborFound.employer
+			employer: laborFound
 
 
 		}
 	}
 
 	countFgsp = () => {
+		let fgsp = this.baseSalary * this.contributionsPercent.fgsp.employer;
+		fgsp = round(fgsp, 2);
 		this.contributionsAmount.fgsp = {
 
-			employer: this.baseSalary * this.contributionsPercent.fgsp.employer
+			employer: fgsp
 
 		}
 	}

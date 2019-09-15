@@ -46,7 +46,7 @@ export default class SalaryScreen extends React.Component {
 				paddingBottom: 5
 			}}>
 				<Text style={{color: Color.text}}>{Labels.costs[item]}</Text>
-				<Text style={{color: Color.text}}>{this.state.costs[item][type]}</Text>
+				<Text style={{color: Color.text}}>{this.state.costs[item][type].toFixed(2)}</Text>
 			</View>
 		)
 	}
