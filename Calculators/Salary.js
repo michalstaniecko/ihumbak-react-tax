@@ -13,9 +13,10 @@ export default class Salary {
 		this.contributionsAmount = {};
 		this.baseTax = '';
 		this.employeeCostIncome = {
-			in: 111.25,
+			in: 250,
 		};
-		this.taxFree = 46.33;
+		this.taxPercent = 0.17;
+		this.taxFree = 43.76;
 		this.contributionsPercent = {
 			pension: {
 
@@ -107,7 +108,7 @@ export default class Salary {
 		}
 	}
 	countTax = () => {
-		let tax = (this.taxBase * 0.18) - this.taxFree - (0.0775 * this.baseHealth);
+		let tax = (this.taxBase * this.taxPercent) - this.taxFree - (0.0775 * this.baseHealth);
 		tax = round(tax);
 		this.contributionsAmount.tax = {
 			employee: tax
