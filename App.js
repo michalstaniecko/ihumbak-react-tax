@@ -7,9 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, Text, View} from 'react-native';
-import TabNavigation from './navigations/TabNavigation';
-import VatScreen from "./screens/VatScreen";
+import DrawerNavigation from "./navigations/DrawerNavigation";
 import SplashScreen from "react-native-splash-screen";
 
 export default class App extends Component {
@@ -19,7 +17,7 @@ export default class App extends Component {
 
 	render() {
     return (
-      <TabNavigation/>
+      <DrawerNavigation/>
     );
   }
 }

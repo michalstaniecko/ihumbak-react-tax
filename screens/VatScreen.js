@@ -126,7 +126,7 @@ export default class VatScreen extends React.Component {
 	render() {
 		return (
 			<Container>
-				<HeaderScreen subtitle="Kalkulator VAT"/>
+				<HeaderScreen subtitle="Kalkulator VAT" />
 				<Container style={{
 					'display': 'flex',
 					'flex': 1,

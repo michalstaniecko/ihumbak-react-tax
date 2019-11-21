@@ -5,7 +5,7 @@ import SalaryScreen from "../screens/SalaryScreen";
 import VatScreen from "../screens/VatScreen";
 import Colors from "../settings/Colors";
 
-const TabNavigator = createMaterialTopTabNavigator({
+const SalaryCalcNavigator = createMaterialTopTabNavigator({
 	"Kalkulator VAT": {
 		screen: VatScreen
 	},
@@ -35,4 +35,4 @@ const TabNavigator = createMaterialTopTabNavigator({
 	}
 });
 
-export default createAppContainer(TabNavigator);
+export default SalaryCalcNavigator;
