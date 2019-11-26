@@ -32,6 +32,12 @@ export default class SalaryScreen extends React.Component {
 
 	onTypeChange = (type) => {
 
+		salary.salary = salary.countNettoToBrutto();
+		this.setState({
+			type: type,
+			costs: salary.count(),
+			salary: salary.salary
+		});
 	}
 
 	renderCostItem = (type,item) => {
@@ -155,7 +161,7 @@ export default class SalaryScreen extends React.Component {
 								style={{width: undefined}}
 								placeholder="Typ kwoty"
 								selectedValue={this.state.type}
-								//onValueChange={this.onTypeChange.bind(this)}
+								onValueChange={this.onTypeChange.bind(this)}
 							>
 								<Picker.Item label="Brutto" value="brutto"/>
 								<Picker.Item label="Netto" value="netto"/>

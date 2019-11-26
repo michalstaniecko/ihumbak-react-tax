@@ -191,5 +191,9 @@ export default class Salary {
 		}
 	}
 
+	countNettoToBrutto = () => {
+		return (this.salary - 0.17 * this.employeeCostIncome.in - this.taxFree) / 0.70542075;
+	}
+
 
 }
