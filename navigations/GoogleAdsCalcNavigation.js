@@ -1,15 +1,23 @@
 import React from 'react';
-import {createAppContainer, createMaterialTopTabNavigator} from "react-navigation";
+import {createAppContainer, createMaterialTopTabNavigator, createStackNavigator} from "react-navigation";
 import AdsConversionScreen from "../screens/AdsConversionScreen";
 import Colors from "../settings/Colors";
+import AdsConversionCount from "../screens/AdsConversionCountScreen";
 
-const GoogleAdsCalsNavigator = createMaterialTopTabNavigator(
+const GoogleAdsCalsNavigator = createStackNavigator(
   {
-    "Adsense": {
-      screen: AdsConversionScreen
+    "AdsConversionScreen": {
+      screen: AdsConversionScreen,
+      navigationOptions: {
+        title: "Kalkulator konwersji reklam"
+      }
+    },
+    'CountConversion': {
+      screen: AdsConversionCount
     }
   },
   {
+    headerMode: 'none',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: Colors.accent,

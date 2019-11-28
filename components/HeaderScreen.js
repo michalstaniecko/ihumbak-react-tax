@@ -8,18 +8,30 @@ import Color from './../settings/Colors';
 class HeaderScreen extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.navigation);
   }
 
   _openMenu = () => {
     this.props.navigation.dispatch(DrawerActions.toggleDrawer());
   }
 
+  backIcon = () => {
+    if (this.props.backIcon) {
+      return (
+        <Left style={{
+          flex:0,
+          marginRight: 8
+        }}>
+          <Button dark transparent onPress={() => this.props.navigation.goBack()} style={{paddingRight: 8}}><Icon name="arrow-back"/></Button>
+        </Left>
+      )
+    }
+  }
+
   render() {
     return (
 
       <Header style={{backgroundColor: Color.headerBackground, borderBottomWidth: 1, borderBottomColor: Color.accent}}>
-
+        {this.backIcon()}
         <Body style={{}}>
           <Title style={{color: Color.headerText}}>
             Niezbędnik Przedsiębiorcy

@@ -2,19 +2,27 @@ import React from 'react';
 import {createAppContainer, createDrawerNavigator} from "react-navigation";
 import SalaryCalcNavigator from "./SalaryCalcNavigation";
 import AdsConversionScreen from "../screens/AdsConversionScreen";
+import GoogleAdsCalsNavigator from "./GoogleAdsCalcNavigation";
 
 
 const DrawerNavigator  = createDrawerNavigator(
   {
-    "Kalkulator wynagrodzeń": {
-      screen: SalaryCalcNavigator
+    SalaryCalc: {
+      screen: SalaryCalcNavigator,
+      navigationOptions: {
+        title: 'Kalkulator wyngrodzeń'
+      },
     },
-    "Kalkulator konwersji reklam": {
-      screen: AdsConversionScreen,
+    adsConversionCals: {
+      screen: GoogleAdsCalsNavigator,
+      navigationOptions: {
+
+        title: 'Kalkulator konwersji reklam'
+      }
     }
   },
   {
-
+    initialRouteName: 'adsConversionCals'
   }
 );
 
